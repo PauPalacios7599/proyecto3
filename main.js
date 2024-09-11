@@ -1,3 +1,5 @@
+// main.js
+
 // HEADER
 const headerTemplate = () => {
   return `
@@ -97,7 +99,7 @@ const searchPhotos = async (keyword) => {
     return data
   } catch (error) {
     console.error('Error fetching photos:', error)
-    return { results: [] }
+    return { results: [] } // Retorna una respuesta vacía en caso de error
   }
 }
 
@@ -110,11 +112,11 @@ const galleryTemplate = () => {
 
 const printItems = (items) => {
   const gallery = document.querySelector('.gallery')
-  let htmlContent = ''
+  let htmlContent = '' // Crear una variable para almacenar el contenido HTML
   items.forEach((item) => {
     htmlContent += cardTemplate(item)
   })
-  gallery.innerHTML = htmlContent
+  gallery.innerHTML = htmlContent // Asignar el HTML completo una vez
 }
 
 // Limpieza de galería
@@ -129,24 +131,25 @@ const galleryListeners = async () => {
   const btn = document.querySelector('#searchbtn')
 
   const search = async () => {
-    const keyword = input.value.trim()
+    const keyword = input.value.trim() // Capturamos el valor del input
     if (keyword) {
       const images = await searchPhotos(keyword)
       if (images.results.length > 0) {
-        printItems(images.results)
+        printItems(images.results) // Mostramos los resultados
       } else {
-        clearGallery()
+        clearGallery() // Mostrar un mensaje si no hay resultados
       }
     } else {
-      clearGallery()
+      clearGallery() // Limpiar la galería si no hay palabra clave
     }
   }
 
   btn.addEventListener('click', search)
 
+  // Capturamos el evento de la tecla "Enter"
   input.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      search()
+      search() // Llamamos a la función de búsqueda al presionar Enter
     }
   })
 }
@@ -155,6 +158,7 @@ const printTemplate = async () => {
   document.querySelector('main').innerHTML = galleryTemplate()
   galleryListeners()
 
+  // Mensaje inicial de bienvenida en lugar de imágenes por defecto
   const gallery = document.querySelector('.gallery')
   gallery.innerHTML =
     '<p>Bienvenido. Usa la barra de búsqueda para encontrar imágenes.</p>'
