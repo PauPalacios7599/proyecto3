@@ -1,6 +1,3 @@
-import './style.css'
-import './index.html'
-
 // HEADER
 const headerTemplate = () => {
   return `
@@ -88,7 +85,7 @@ const cardTemplate = (item) => {
 
 // UNSPLASH API
 const searchPhotos = async (keyword) => {
-  const accessKey = import.meta.env.UNSPLASH_ACCESS_KEY
+  const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
   const url = `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${accessKey}&page=1&per_page=30`
 
   try {
@@ -100,7 +97,7 @@ const searchPhotos = async (keyword) => {
     return data
   } catch (error) {
     console.error('Error fetching photos:', error)
-    return { results: [] } // Retorna una respuesta vacía en caso de error
+    return { results: [] }
   }
 }
 
@@ -113,11 +110,11 @@ const galleryTemplate = () => {
 
 const printItems = (items) => {
   const gallery = document.querySelector('.gallery')
-  let htmlContent = '' // Crear una variable para almacenar el contenido HTML
+  let htmlContent = ''
   items.forEach((item) => {
     htmlContent += cardTemplate(item)
   })
-  gallery.innerHTML = htmlContent // Asignar el HTML completo una vez
+  gallery.innerHTML = htmlContent
 }
 
 // Limpieza de galería
@@ -132,25 +129,24 @@ const galleryListeners = async () => {
   const btn = document.querySelector('#searchbtn')
 
   const search = async () => {
-    const keyword = input.value.trim() // Capturamos el valor del input
+    const keyword = input.value.trim()
     if (keyword) {
       const images = await searchPhotos(keyword)
       if (images.results.length > 0) {
-        printItems(images.results) // Mostramos los resultados
+        printItems(images.results)
       } else {
-        clearGallery() // Mostrar un mensaje si no hay resultados
+        clearGallery()
       }
     } else {
-      clearGallery() // Limpiar la galería si no hay palabra clave
+      clearGallery()
     }
   }
 
   btn.addEventListener('click', search)
 
-  // Capturamos el evento de la tecla "Enter"
   input.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      search() // Llamamos a la función de búsqueda al presionar Enter
+      search()
     }
   })
 }
@@ -159,7 +155,6 @@ const printTemplate = async () => {
   document.querySelector('main').innerHTML = galleryTemplate()
   galleryListeners()
 
-  // Mensaje inicial de bienvenida en lugar de imágenes por defecto
   const gallery = document.querySelector('.gallery')
   gallery.innerHTML =
     '<p>Bienvenido. Usa la barra de búsqueda para encontrar imágenes.</p>'
