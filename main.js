@@ -5,9 +5,9 @@ const headerTemplate = () => {
   return `
     <h1>I</h1>
     <input type="text" placeholder="Buscar imágenes" id="searchinput"/>
-    <button id="searchbtn" disabled><img src="/icons/search.svg" alt="Search icon"/></button>
-    <button id="darkmodebtn"><img src="/icons/dark.svg" alt="Dark mode icon" id="darkmodeicon"/></button>
-    <img src="/images/profile.jpg" alt="Profile image" class="profileimg" /> 
+    <button id="searchbtn" disabled><img src="/assets/icons/search.svg" alt="Search icon"/></button>
+    <button id="darkmodebtn"><img src="/assets/icons/dark.svg" alt="Dark mode icon" id="darkmodeicon"/></button>
+    <img src="/assets/images/profile.jpg" alt="Profile image" class="profileimg" /> 
   `
 }
 
@@ -21,7 +21,9 @@ const listeners = () => {
     themeSwitch()
     const theme = document.body.classList.contains('dark')
     const darkmodeicon = document.querySelector('#darkmodeicon')
-    darkmodeicon.src = theme ? '/icons/light.svg' : '/icons/dark.svg'
+    darkmodeicon.src = theme
+      ? '/assets/icons/light.svg'
+      : '/assets/icons/dark.svg'
   })
 
   // Disable search button if input is empty
@@ -71,10 +73,10 @@ const cardTemplate = (item) => {
   }</a>
           <div>
             <a href="${item.urls.full}" target="_blank" class="links-icon">
-              <img src="/icons/upload.svg" alt="Upload icon"/>
+              <img src="/assets/icons/upload.svg" alt="Upload icon"/>
             </a>
             <a href="#null" class="links-icon">
-              <img src="/icons/more.svg" alt="More icon"/>
+              <img src="/assets/icons/more.svg" alt="More icon"/>
             </a>    
           </div>
         </div>
@@ -85,9 +87,7 @@ const cardTemplate = (item) => {
 
 // UNSPLASH API
 const searchPhotos = async (keyword) => {
-  // API Key directamente en el código (temporalmente)
-  const accessKey = ' F4TfQAyYMVhCDZ32xnMtTND3YFFi1jCrJf-1yfY8gl4' // Coloca tu API Key aquí
-  // URL de la API sin encodeURIComponent
+  const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
   const url = `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${accessKey}&page=1&per_page=30`
 
   try {
