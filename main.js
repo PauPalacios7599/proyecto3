@@ -1,4 +1,5 @@
 import './style.css'
+import './index.html'
 
 // HEADER
 const headerTemplate = () => {
@@ -87,7 +88,7 @@ const cardTemplate = (item) => {
 
 // UNSPLASH API
 const searchPhotos = async (keyword) => {
-  const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+  const accessKey = import.meta.env.UNSPLASH_ACCESS_KEY
   const url = `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${accessKey}&page=1&per_page=30`
 
   try {
@@ -131,24 +132,25 @@ const galleryListeners = async () => {
   const btn = document.querySelector('#searchbtn')
 
   const search = async () => {
-    const keyword = input.value.trim()
+    const keyword = input.value.trim() // Capturamos el valor del input
     if (keyword) {
       const images = await searchPhotos(keyword)
       if (images.results.length > 0) {
-        printItems(images.results)
+        printItems(images.results) // Mostramos los resultados
       } else {
         clearGallery() // Mostrar un mensaje si no hay resultados
       }
     } else {
-      printItems([]) // Limpiar la galería si no hay palabra clave
+      clearGallery() // Limpiar la galería si no hay palabra clave
     }
   }
 
   btn.addEventListener('click', search)
 
-  input.addEventListener('keydown', (event) => {
+  // Capturamos el evento de la tecla "Enter"
+  input.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      search()
+      search() // Llamamos a la función de búsqueda al presionar Enter
     }
   })
 }
