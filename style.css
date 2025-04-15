@@ -16,11 +16,19 @@ body {
   background-color: var(--color-background);
   color: var(--primary);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark {
   background-color: var(--primary);
   color: var(--color-background);
+}
+
+.dark input,
+.dark .gallery-item button,
+.dark header button {
+  background-color: #333;
+  color: white;
 }
 
 a {
@@ -39,10 +47,9 @@ li {
   list-style-type: none;
 }
 
-/* HEADER STYLES */
+/* HEADER */
 header {
   display: flex;
-
   height: 15vh;
   justify-content: space-between;
   align-items: center;
@@ -52,12 +59,14 @@ header {
 
 header > h1 {
   background-color: var(--logo);
-  padding: 0.5rem; /* Reducir el espaciado */
-  font-size: 1rem; /* Reducir el tamaño de la fuente */
+  padding: 0.5rem;
+  font-size: 1rem;
   text-align: center;
-  border-radius: 50%; /* Mantener un estilo redondeado */
+  border-radius: 50%;
   color: var(--color-background);
-  width: auto; /* Dejar que se ajuste al texto */
+  width: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 header input {
@@ -67,6 +76,7 @@ header input {
   background-color: var(--secondary);
   border: none;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 header button {
@@ -77,15 +87,16 @@ header button {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+header button:hover {
+  background-color: var(--secondary);
 }
 
 header img {
   height: 50px;
   width: 50px;
-}
-
-header button:hover {
-  background-color: var(--secondary);
 }
 
 header .icon {
@@ -98,7 +109,7 @@ header .profileimg {
   width: 40px;
 }
 
-/* FOOTER STYLES */
+/* FOOTER */
 footer {
   height: 15vh;
   display: flex;
@@ -106,7 +117,7 @@ footer {
   align-items: center;
 }
 
-/* GALLERY ITEM STYLES */
+/* GALLERY ITEM */
 .gallery-item {
   position: relative;
   height: 100%;
@@ -115,6 +126,11 @@ footer {
   background-position: center;
   border-radius: 2rem;
   overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.01);
 }
 
 .gallery-item .hidden-img {
@@ -184,21 +200,19 @@ footer {
 }
 
 .gallery-item .full-link {
-  width: 200px;
+  width: auto;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-weight: bold;
   color: black;
 }
 
-/* GALLERY STYLES */
+/* GALLERY GRID */
 .gallery {
   padding: 0 1rem;
   display: grid;
-  grid-auto-rows: minmax(
-    200px,
-    auto
-  ); /* Ajusta el tamaño mínimo de las filas */
+  grid-auto-rows: minmax(200px, auto);
   gap: 1rem;
   grid-auto-flow: row dense;
 }
